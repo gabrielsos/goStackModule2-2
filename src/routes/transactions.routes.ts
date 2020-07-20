@@ -1,7 +1,7 @@
 import { Router } from 'express';
+import multer from 'multer';
 
 import { getCustomRepository } from 'typeorm';
-import multer from 'multer';
 import TransactionsRepository from '../repositories/TransactionsRepository';
 import CreateTransactionService from '../services/CreateTransactionService';
 import DeleteTransactionService from '../services/DeleteTransactionService';
@@ -22,22 +22,21 @@ transactionsRouter.get('/', async (request, response) => {
 
   return response.json({ transactions, balance });
 });
-
+// Ok
 transactionsRouter.post('/', async (request, response) => {
   const { title, value, type, category } = request.body;
 
-  const createTransactionService = new CreateTransactionService();
+  const createTransaction = new CreateTransactionService();
 
-  const transaction = await createTransactionService.execute({
+  const transaction = await createTransaction.execute({
     title,
     value,
     type,
     category,
   });
-
   return response.json(transaction);
 });
-
+// Ok
 transactionsRouter.delete('/:id', async (request, response) => {
   const { id } = request.params;
 
